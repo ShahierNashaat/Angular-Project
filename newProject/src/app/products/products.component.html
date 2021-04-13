@@ -1,0 +1,50 @@
+<h1>{{StoreName |uppercase}}</h1>
+<img [src]="StoreLogo" width="200px" height="auto"/>
+<h3 *ngIf="Discount != 'No Discount'">We offer an explicit discount of: {{Discount |percent}}</h3>
+
+<br>
+
+<input type="text" [(ngModel)]="ClientName">
+{{ClientName}}
+
+<br>
+
+<select>
+    <option *ngFor="let cat of CategoryList" value="{{cat.ID}}">{{cat.Name}}</option>
+</select>
+
+<br>
+
+<input type="button" (click)="goToProductsWithDiscounts()" value="Products With Discounts"/>
+<input type="button" (click)="goToProductsWithoutDiscounts()" value="Products Without Discounts"/>
+
+<input type="button" (click)="buy()" value="Buy" />
+
+<router-outlet></router-outlet>
+
+<div *ngIf="IsPurshased; then thenBlock; else elseBlock">
+
+</div>
+
+<ng-template #thenBlock>
+    <div>
+        <p>Thanks for purchasing from our Store {{ClientName}}</p>
+    </div>
+</ng-template>
+
+<ng-template #elseBlock>
+    <table class="table" #elseBlock *ngIf="IsRendered">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+        <tr *ngFor="let product of ProductList">
+            <td>{{product.ID}}</td>
+            <td>{{product.Name}}</td>
+            <td>{{product.Quantity}}</td>
+            <td>{{product.Price}}</td>
+        </tr>
+    </table>
+</ng-template>

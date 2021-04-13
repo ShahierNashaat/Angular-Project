@@ -1,0 +1,43 @@
+<div class="container">
+    <form [formGroup]="registerForm">
+        <div class="form-group">
+            <label>Name :</label>
+            <input type="text" [class.is-invalid]="username?.invalid && username?.touched" formControlName="username" class="form-control">
+            <div *ngIf="username.errors && username.touched">
+                <small class="text-danger" *ngIf="username?.errors?.required">User Name is required</small>
+                <small class="text-danger" *ngIf="username?.errors?.pattern">User Name must contains letters only</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Email :</label>
+            <input type="email" [class.is-invalid]="email.invalid && email.touched" formControlName="email" class="form-control">
+            <div *ngIf="email.errors && email.touched">
+                <small class="text-danger" *ngIf="email.errors.required">Email is required</small>
+                <small class="text-danger" *ngIf="email.errors.pattern">Email must contains @</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Password :</label>
+            <input type="password" [class.is-invalid]="password.invalid && password.touched" formControlName="password" class="form-control" >
+            <small class="text-danger" [class.d-none]="password.untouched || password.valid">Password is required</small>
+        </div>
+        <div class="form-group">
+            <label>Confirm Password :</label>
+            <input type="password" [class.is-invalid]="confirmPassword.invalid && password.touched" formControlName="confirmPassword" class="form-control">
+            <small class="text-danger" [class.d-none]="!registerForm.errors?.misMatch">Confirm-Password Not Match Password</small>
+        </div>
+        <div class="form-group">
+            <select class="custom-select" formControlName="socialField">
+                <option selected>
+                    Where you hear about us
+                </option>
+                <option *ngFor="let social of socials">{{social}}
+                </option>
+            </select>
+            <small class="text-danger" [class.d-none]="socialField.untouched || socialField.valid">This Field is required</small>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Register">
+    </form>
+</div>

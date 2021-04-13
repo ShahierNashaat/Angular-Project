@@ -1,0 +1,10 @@
+<p>car works!</p>
+
+<div *ngFor="let car of carList">
+    {{car.id}}) {{car.name}} - {{car.model}}
+</div>
+
+<input type="number" #txtInput>
+<button (click)="GetByID(txtInput.value)">Click</button>
+
+{{mycar.id}}) {{mycar.name}} - {{mycar.model}}

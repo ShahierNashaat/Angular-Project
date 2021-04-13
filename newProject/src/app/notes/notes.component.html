@@ -1,0 +1,42 @@
+<div class="container">
+    <form [formGroup]="notesForm">
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" [class.is-invalid]="name.invalid && name.touched" formControlName="name"/>
+            <div *ngIf="name.errors && name.touched">
+                <small style="color: red;" *ngIf="name.errors.required">Name is required</small>
+                <small style="color: red;" *ngIf="name.errors.forbiddenName">{{name.errors.forbiddenName.value}} is not allowed</small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Select Product</label>
+            <select class="form-control" formControlName="product">
+                <option *ngFor="let product of ProductList" value="{{product.ID}}">
+                    {{product.Name}}
+                </option>
+            </select>
+            <div *ngIf="product.errors && product.touched">
+                <small style="color: red;" *ngIf="product.errors.required">Product is required</small>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="checkbox" formControlName="thisProductContainDiscount" (click)="enterDiscount()"/>
+            <label> This product containd discount</label>
+        </div>
+        <div class="form-group" *ngIf="thisProductContainDiscount.value">
+            <label>Discount</label>
+            <input type="number" class="form-control" formControlName="discount" [class.is-invalid]="discount.invalid && discount.touched"/>
+            <div *ngIf="discount.errors && discount.touched">
+                <small style="color: red" *ngIf="discount.errors.required">Discount is required</small>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="button" class="btn btn-primary" value="Add Comment" (click)="addComment()"/>
+        </div>
+        <div class="form-group" *ngFor="let newEmail of comments.controls; let i=index">
+            <label>Comment {{i+1}}</label>
+            <input type="text" class="form-control" [formControlName]="i"/>
+            <button (click)="removeComment(i)" class="btn btn-primary">Remove this comment</button>
+        </div>
+    </form>
+</div>
